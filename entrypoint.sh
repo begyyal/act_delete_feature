@@ -8,15 +8,6 @@ function getIssue() {
     https://api.github.com/repos/begyyal/$repos/issues/$issue_no
 }
 
-function closeIssue() {
-  curl \
-    -X PATCH \
-    -H "Authorization: token $token" \
-    -H "Accept: application/vnd.github.v3+json" \
-    https://api.github.com/repos/begyyal/$repos/issues/$issue_no \
-    -d '{"state":"closed"}'
-}
-
 token=$1
 repos=$2
 if [ -z $token -o -z $repos ]; then
@@ -35,6 +26,6 @@ while read branch; do
   [ -z $issue_no ] && continue
 
   state=$(getIssue | jq '.state')
-  [ $state = closed ] && closeIssue
+  [ $state = closed ] && git push --delete origin feature/$issue_no
 
 done
