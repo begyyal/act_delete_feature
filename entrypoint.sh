@@ -5,7 +5,7 @@ function getIssue() {
     -X GET \
     -H "Authorization: token $token" \
     -H "Accept: application/vnd.github.v3+json" \
-    https://api.github.com/repos/begyyal/$repos/issues/$issue_no
+    https://api.github.com/repos/$repos/issues/$issue_no
 }
 
 token=$1
@@ -15,7 +15,7 @@ if [ -z $token -o -z $repos ]; then
   exit 1
 fi
 
-git clone https://${token}@github.com/begyyal/${repos}.git
+git clone https://${token}@github.com/${repos}.git
 
 git fetch
 git branch |
