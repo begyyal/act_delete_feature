@@ -17,9 +17,10 @@ fi
 
 git clone https://${token}@github.com/${repos}.git
 
+git fetch
 git branch
 
-git fetch
+
 git branch |
 awk '{print substr($0,3)}' |
 while read branch; do
