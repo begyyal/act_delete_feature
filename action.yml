@@ -2,8 +2,11 @@ name: 'Delete feature branches'
 inputs:
   token:
     required: true
+  repos:
+    required: true  
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.token }}
+    - ${{ inputs.repos }}
