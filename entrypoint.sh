@@ -33,3 +33,5 @@ while read branch; do
   [ $state = \"closed\" ] && git push --delete origin $BRANCH_PREFIX/$issue_no
 
 done
+
+exit 0
