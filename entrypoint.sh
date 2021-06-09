@@ -1,5 +1,7 @@
 #!/bin/bash
 
+readonly BRANCH_PREFIX=feature
+
 function getIssue() {
   curl \
     -X GET \
@@ -16,21 +18,18 @@ if [ -z $token -o -z $repos ]; then
 fi
 
 git clone https://${token}@github.com/${repos}.git
+cd ./tumeshogi_resolver
 
-git fetch
-git branch
-
-
-git branch |
+git fetch --all
+git branch -a |
 awk '{print substr($0,3)}' |
+awk '$0 ~ /^remotes\/origin\/'$BRANCH_PREFIX'/ {print $0}' |
 while read branch; do
  
-  issue_no=${branch:8}
+  issue_no=${branch:23}
   [ -z $issue_no ] && continue
 
-  echo $issue_no
-
   state=$(getIssue | jq '.state')
-  [ $state = closed ] && git push --delete origin feature/$issue_no
+  [ $state = \"closed\" ] && git push --delete origin $BRANCH_PREFIX/$issue_no
 
 done
