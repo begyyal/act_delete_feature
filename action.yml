@@ -3,10 +3,14 @@ inputs:
   token:
     required: true
   repos:
-    required: true  
+    required: true
+  prefix:
+    required: false
+    default: 'feature'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.token }}
     - ${{ inputs.repos }}
+    - ${{ inputs.prefix }}
