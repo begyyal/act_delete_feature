@@ -1,7 +1,5 @@
 #!/bin/bash
 
-readonly BRANCH_PREFIX=feature
-
 function getIssue() {
   curl \
     -X GET \
@@ -12,6 +10,7 @@ function getIssue() {
 
 token=$1
 repos=$2
+branch_prefix=${3:-feature}
 if [ -z $token -o -z $repos ]; then
   echo 'Required argument lacks.'
   exit 1
@@ -23,14 +22,14 @@ cd ./tumeshogi_resolver
 git fetch --all
 git branch -a |
 awk '{print substr($0,3)}' |
-awk '$0 ~ /^remotes\/origin\/'$BRANCH_PREFIX'/ {print $0}' |
+awk '$0 ~ /^remotes\/origin\/'$branch_prefix'/ {print $0}' |
 while read branch; do
  
   issue_no=${branch:23}
   [ -z $issue_no ] && continue
 
   state=$(getIssue | jq '.state')
-  [ $state = \"closed\" ] && git push --delete origin $BRANCH_PREFIX/$issue_no
+  [ $state = \"closed\" ] && git push --delete origin $branch_prefix/$issue_no
 
 done
 
