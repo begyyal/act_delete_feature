@@ -17,7 +17,7 @@ if [ -z $token -o -z $repos ]; then
 fi
 
 git clone https://${token}@github.com/${repos}.git
-cd ./tumeshogi_resolver
+cd ./${repos#*/}
 
 git fetch --all
 git branch -a |
