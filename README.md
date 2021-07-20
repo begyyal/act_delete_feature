@@ -2,3 +2,7 @@
 
 GithubAction。  
 featureブランチの内でissueクローズ済みのものを全て削除する。  
+
+## 前提
+
+- https://github.com/begyyal/act_delete_feature/blob/master/action.yml
