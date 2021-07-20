@@ -29,7 +29,7 @@ awk '{print substr($0,3)}' |
 awk '$0 ~ /^remotes\/origin\/'$branch_prefix'/ {print $0}' |
 while read branch; do
  
-  issue_no=${branch:23}
+  issue_no=${branch}
   [ -z $issue_no ] && continue
 
   state=$(getIssue | jq '.state')
