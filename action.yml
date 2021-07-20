@@ -1,9 +1,11 @@
 name: 'Delete feature branches'
-inputs:
+inputs:  
   token:
-    required: true
-  repos:
-    required: true
+    required: false
+    default: ${{ github.token }}
+  repos:  
+    required: false
+    default: ${{ github.repository }}
   prefix:
     required: false
     default: 'feature'
