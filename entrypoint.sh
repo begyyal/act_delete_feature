@@ -16,10 +16,10 @@ if [ -z $token -o -z $repos ]; then
   exit 1
 fi
 
-git clone https://github.com/${repos}.git
+origin=${GITHUB_SERVER_URL:-${GITHUB_URL:-https://github.com}}
+git clone ${origin}/${repos}.git
 cd ./${repos#*/}
 
-origin=${GITHUB_SERVER_URL:-${GITHUB_URL:-https://github.com}}
 token64=$(printf "%s""x-access-token:$token" | base64)
 git config --local http.${origin}/.extraheader "AUTHORIZATION: basic $token64"
 
